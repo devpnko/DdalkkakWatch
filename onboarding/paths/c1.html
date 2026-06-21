@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>C1 — Mac mic + 워치 PTT · 딸깍</title>
+<link rel="stylesheet" href="../style.css"/>
+</head><body class="guide">
+<div class="wrap">
+  <a href="../index.html" class="back">← 마법사로</a>
+  <h1>C1 — Mac 내장 마이크 + 워치 PTT <span class="tag ok">검증</span></h1>
+  <p class="lede">가장 빠른 셋업. 추가 장비 0, 3분 안에 받아쓰기 가능. <b>Mac 1m 이내</b>일 때 가장 좋아.</p>
+
+  <article>
+    <h3>1) 워치 개발자 모드 + 무선 디버깅 켜기</h3>
+    <p>워치 앱은 현재 adb 사이드로드로 설치 (Galaxy Store 미등록). 워치에서:</p>
+    <ol>
+      <li><b>설정 → 워치 정보 → 소프트웨어 정보 → "빌드 번호" 7번 연속 탭</b> → 개발자 모드 ON</li>
+      <li><b>설정 → 개발자 옵션 → 무선 디버깅</b> ON</li>
+      <li>무선 디버깅 → <b>"디버깅 허용 기기에서 페어링"</b> → <b>IP:포트 + 6자리 페어링 코드</b> 메모</li>
+      <li>같은 화면 위쪽의 <b>IP 주소 : 포트</b>(연결용, 페어링 포트와 다름)도 메모</li>
+    </ol>
+  </article>
+
+  <article>
+    <h3>2) Mac에서 워치에 앱 설치 (adb)</h3>
+    <p>⚠️ 이건 <b>개발 설치용 adb 페어링</b> — 아래 4)의 BT 페어링(실사용)과 다릅니다.</p>
+    <pre><code># Mac terminal — 1)에서 메모한 값 사용
+adb pair 192.168.x.x:페어링포트        # 6자리 코드 입력
+adb connect 192.168.x.x:연결포트
+adb devices                            # 워치가 device로 보여야 OK
+
+# APK 설치 (릴리스 받았으면)
+adb install -r DdalkkakWatch.apk
+# 또는 소스 빌드:
+./gradlew :app:assembleDebug && \
+  adb install -r app/build/outputs/apk/debug/app-debug.apk</code></pre>
+    <p>워치가 sleep으로 끊기면 화면 깨우고 <code>adb connect</code> 재시도. (자동 재연결 데몬은 README 참고)</p>
+  </article>
+
+  <article>
+    <h3>3) 받아쓰기 단축키 설정 (Mac)</h3>
+    <p>OpenTypeless / Superwhisper / macOS 받아쓰기 중 택일 → 단축키를 <code>Opt+Cmd+X</code>로.</p>
+    <p>Spotlight과 충돌 안 나게 <code>Opt+Cmd+X</code> 권장.</p>
+  </article>
+
+  <article>
+    <h3>4) 워치 ↔ Mac 블루투스 페어링 (실사용 연결)</h3>
+    <p>⚠️ 2)의 adb와 별개 — 이게 <b>실제 키 입력이 흐르는 BT HID 연결</b>입니다.</p>
+    <ol>
+      <li>워치에서 <b>딸깍</b> 앱 실행 → 화면 한 번 탭 → "2분간 Discoverable".</li>
+      <li>Mac → 시스템 설정 → Bluetooth → <b>DdalkkakWatch</b> 찾기 → 연결.</li>
+      <li>워치에 페어링 코드 표시되면 동일 코드 확인 후 수락.</li>
+      <li>워치 상태가 <b>"누름=Typeless · 더블탭=Enter"</b>로 바뀌면 OK.</li>
+    </ol>
+  </article>
+
+  <article>
+    <h3>5) Mac 마이크 입력 확인</h3>
+    <ol>
+      <li>시스템 설정 → 사운드 → 입력 → <b>MacBook Pro 마이크</b> (또는 외장) 선택</li>
+      <li>"입력 레벨" 막대가 움직이는지 한 번 발화로 확인</li>
+    </ol>
+  </article>
+
+  <article>
+    <h3>6) 검증 발화</h3>
+    <ol>
+      <li>아무 텍스트 필드 (메모/Cursor/Claude Code)에 커서</li>
+      <li>워치 화면 <b>꾹 누름</b> (200ms+) → 받아쓰기 UI 활성화</li>
+      <li>"안녕하세요" 발화 → 손 떼면 텍스트 입력</li>
+      <li>짧게 <b>두 번 탭</b> = Enter</li>
+    </ol>
+  </article>
+
+  <article>
+    <h3>7) (선택) 화면도 안 켜고 — Knock-Knock</h3>
+    <p>여기까지 됐으면, 손목 두 번 두드림만으로 화면 없이 받아쓰기를 켤 수 있어요.</p>
+    <p><a href="knock-knock.html">→ 무화면 받아쓰기 (Knock-Knock) 셋업</a></p>
+  </article>
+
+  <p><a href="../index.html">← 마법사로</a> · <a href="c2.html">다음 path C2 →</a></p>
+</div>
+</body></html>

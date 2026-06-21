@@ -1,0 +1,125 @@
+:root{
+  --bg:#0e0e10;
+  --panel:#1a1a1d;
+  --panel-2:#222226;
+  --line:#2b2b30;
+  --text:#f2f2f2;
+  --muted:#9b9ba3;
+  --accent:#7cf2c8;
+  --accent-2:#56d9ad;
+  --warn:#f6c177;
+  --success:#7cf2c8;
+  --danger:#f37272;
+  --radius:14px;
+  --shadow:0 8px 30px rgba(0,0,0,.35);
+  --mono:ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system, "SF Pro", "Pretendard", "Apple SD Gothic Neo", system-ui, sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.55;
+}
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
+
+.wrap{max-width:780px; margin:0 auto; padding:24px 18px 64px}
+
+/* ── 헤더 ───────────────── */
+.topbar{display:flex; align-items:center; gap:14px; padding-bottom:18px; border-bottom:1px solid var(--line); margin-bottom:28px}
+.brand{font-size:18px; letter-spacing:.5px}
+.steps{display:flex; gap:6px; flex-wrap:wrap; margin-left:auto}
+.dot{font-size:12px; padding:4px 10px; border-radius:999px; background:var(--panel); color:var(--muted)}
+.dot.on{background:var(--accent); color:#0a0a0c; font-weight:600}
+.dot.done{background:var(--panel-2); color:var(--text)}
+.ghost{background:transparent; color:var(--muted); border:1px solid var(--line); padding:8px 14px; border-radius:8px; cursor:pointer}
+.ghost:hover{color:var(--text); border-color:var(--muted)}
+
+/* ── 본문 ───────────────── */
+h1{font-size:32px; line-height:1.3; margin:8px 0 16px}
+h2{font-size:24px; margin:0 0 12px}
+h3{font-size:18px; margin:0 0 8px}
+.lede{color:var(--muted); font-size:16px; margin-bottom:28px}
+
+/* ── 카드 ───────────────── */
+.cards{display:grid; gap:14px; margin-bottom:24px}
+.cards.two{grid-template-columns:1fr 1fr}
+@media (max-width:560px){ .cards.two{grid-template-columns:1fr} h1{font-size:26px} }
+.card{
+  display:block; text-align:left;
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:20px; cursor:pointer; color:var(--text);
+  transition:transform .08s ease, border-color .15s ease, background .15s ease;
+}
+.card:hover{transform:translateY(-1px); border-color:var(--accent); background:var(--panel-2)}
+.card.primary{border-color:var(--accent); box-shadow:var(--shadow)}
+.card.success{border-color:var(--success)}
+.card.warn{border-color:var(--warn)}
+.card p{color:var(--muted); margin:6px 0 8px}
+.card small{color:var(--muted)}
+.card-tag{font-size:11px; color:var(--accent); margin-bottom:8px; letter-spacing:1px}
+
+/* ── 질문 ───────────────── */
+.q{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; margin-bottom:16px}
+.q-h{font-weight:600; margin-bottom:12px}
+.q-opts{display:flex; flex-wrap:wrap; gap:8px}
+.q-opts button{
+  background:var(--panel-2); color:var(--text); border:1px solid var(--line);
+  padding:10px 14px; border-radius:10px; cursor:pointer; font-size:14px;
+}
+.q-opts button:hover{border-color:var(--muted)}
+.q-opts button.on{background:var(--accent); color:#0a0a0c; border-color:var(--accent); font-weight:600}
+.hint{display:block; color:var(--muted); margin-top:8px; font-size:12px}
+
+/* ── 행 ───────────────── */
+.row{display:flex; justify-content:space-between; gap:10px; margin-top:24px}
+.primary{
+  background:var(--accent); color:#0a0a0c; border:0; padding:12px 22px; border-radius:10px;
+  cursor:pointer; font-weight:600;
+}
+.primary:disabled{background:var(--panel-2); color:var(--muted); cursor:not-allowed}
+.primary:not(:disabled):hover{background:var(--accent-2)}
+
+/* ── 추천 결과 ────────────── */
+.rec{background:var(--panel); border:1px solid var(--accent); border-radius:var(--radius); padding:24px; margin-bottom:18px}
+.rec h2{margin-top:0}
+.rec .rec-id{font-family:var(--mono); color:var(--accent); font-size:13px; letter-spacing:1px}
+.rec ol{padding-left:20px; margin:14px 0}
+.rec ol li{margin-bottom:10px}
+.rec code{background:var(--panel-2); padding:2px 6px; border-radius:4px; font-family:var(--mono); font-size:13px}
+.rec pre{background:var(--panel-2); padding:12px; border-radius:8px; overflow-x:auto; font-family:var(--mono); font-size:13px; border:1px solid var(--line)}
+.rec .why{color:var(--muted); font-size:14px; margin-top:12px; padding-top:12px; border-top:1px solid var(--line)}
+
+/* ── 비교 표 ────────────── */
+.alt{margin:20px 0; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:14px 18px}
+.alt summary{cursor:pointer; color:var(--muted); user-select:none}
+.alt summary:hover{color:var(--text)}
+.cmp{width:100%; border-collapse:collapse; margin-top:14px; font-size:13px}
+.cmp th,.cmp td{padding:8px 10px; border-bottom:1px solid var(--line); text-align:left}
+.cmp th{color:var(--muted); font-weight:500}
+
+/* ── 검증 / 트러블 ───────── */
+.check{padding-left:22px}
+.check li{margin-bottom:8px}
+.trouble{background:var(--panel); border:1px solid var(--warn); border-radius:var(--radius); padding:18px; margin-top:20px}
+.trouble ul{padding-left:18px}
+.trouble li{margin-bottom:10px; color:var(--muted)}
+.trouble code{background:var(--panel-2); padding:2px 6px; border-radius:4px; font-family:var(--mono); font-size:12px; color:var(--text)}
+
+/* ── 기타 ───────────────── */
+.skip{margin-top:18px; color:var(--muted); font-size:14px}
+.skip a{margin-right:14px}
+.foot{margin-top:48px; text-align:center; color:var(--muted)}
+
+/* path 가이드 페이지용 공통 */
+.guide article{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:24px; margin-bottom:18px}
+.guide article h3{color:var(--accent); margin-bottom:12px}
+.guide article ol, .guide article ul{padding-left:20px}
+.guide article li{margin-bottom:8px; color:var(--text)}
+.guide article code{background:var(--panel-2); padding:2px 6px; border-radius:4px; font-family:var(--mono); font-size:13px}
+.guide article pre{background:#0a0a0c; padding:14px; border-radius:8px; overflow-x:auto; font-family:var(--mono); font-size:13px; border:1px solid var(--line); color:#cfe}
+.back{display:inline-block; margin-bottom:18px; color:var(--muted)}
+.back:hover{color:var(--text)}
+.tag{display:inline-block; padding:3px 10px; border-radius:999px; font-size:11px; letter-spacing:.5px; margin-right:6px}
+.tag.ok{background:var(--accent); color:#0a0a0c}
+.tag.soon{background:var(--warn); color:#0a0a0c}
+.tag.warn{background:var(--danger); color:#fff}

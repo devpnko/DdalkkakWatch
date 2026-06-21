@@ -1,0 +1,36 @@
+# Android / Gradle
+*.iml
+.gradle/
+build/
+app/build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Local config — 절대 커밋 금지 (SDK 절대경로 등 개인 환경)
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.hprof
+
+# Keystore / 서명 (시크릿)
+*.jks
+*.keystore
+keystore.properties
+
+# APK / 빌드 산출물 (releases/ 의 배포본은 예외로 강제 추가)
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# OS
+.DS_Store
+Thumbs.db
+
+# mad / 로컬 작업 상태
+.claude/ralph-loop.local.md
+
+# 로그
+*.log

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>C4 — 워치 mic → roc-vad · 딸깍</title>
+<link rel="stylesheet" href="../style.css"/>
+</head><body class="guide">
+<div class="wrap">
+  <a href="../index.html" class="back">← 마법사로</a>
+  <h1>C4 — 워치 마이크 → WiFi UDP → Mac 가상 mic <span class="tag soon">Coming soon</span></h1>
+  <p class="lede"><b>진짜 워치 본질</b> — 워치 자체 마이크가 Mac의 마이크 입력이 됨. Mac에서 5m+ 떨어진 곳에서도 받아쓰기.</p>
+
+  <article>
+    <h3>왜 이 path</h3>
+    <ul>
+      <li>이어폰·외부 mic 0개. 워치만으로 완결.</li>
+      <li>침대에서, 화이트보드 앞에서, 부엌에서 — Mac 본체와 떨어진 채로 받아쓰기.</li>
+      <li>한계: 음질 6/10, 지연 ~300ms (WiFi UDP 조건).</li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>구성</h3>
+    <pre><code>워치 (Wear OS)              Mac
+┌────────────────┐         ┌────────────────────┐
+│ roc-sender app │── UDP ──│ roc-vad daemon     │
+│   (mic capture)│   WiFi  │   ↓                │
+└────────────────┘         │ CoreAudio HAL      │
+        │PTT BLE HID       │   ↓                │
+        └──────────────────│ 가상 mic "DdalkkakWatch"│
+                           │   ↓                │
+                           │ OpenTypeless 받아쓰기│
+                           └────────────────────┘</code></pre>
+  </article>
+
+  <article>
+    <h3>현재 진행 상황 (2026-06)</h3>
+    <ul>
+      <li>✅ roc-toolkit (roc-vad + roc-java) 라이브러리 검증</li>
+      <li>⚠️ Mac side roc-vad CoreAudio HAL 설치 절차 작성 (sudo 필요)</li>
+      <li>🚧 Wear OS roc-sender 앱 — 3.5주 dev 예정</li>
+      <li>🚧 워치 ↔ Mac 자동 discovery (mDNS)</li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>출시 알림 받기</h3>
+    <p>GitHub <a href="https://github.com/devpnko/DdalkkakWatch" target="_blank" rel="noopener">DdalkkakWatch</a> → Watch → Releases.</p>
+    <p>당장 워치 본질을 쓰고 싶다면 <a href="c2.html">C2 (이어폰)</a>가 가장 가깝습니다.</p>
+  </article>
+
+  <p><a href="c3.html">← C3</a> · <a href="../index.html">마법사로</a> · <a href="c5.html">다음 C5 →</a></p>
+</div>
+</body></html>

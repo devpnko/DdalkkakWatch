@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>딸깍 워치 셋업</title>
+<meta name="description" content="갤럭시 워치 → Mac 음성 받아쓰기 셋업 마법사. 4단계로 누구나 1분 안에." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 헤더 진행바 -->
+  <header class="topbar">
+    <div class="brand">⌚→💻 <b>딸깍</b></div>
+    <nav class="steps" id="steps">
+      <span class="dot on"  data-step="1">환영</span>
+      <span class="dot"     data-step="2">시나리오</span>
+      <span class="dot"     data-step="3">추천</span>
+      <span class="dot"     data-step="4">검증</span>
+    </nav>
+    <button class="ghost" id="restart" hidden>다시</button>
+  </header>
+
+  <main>
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <!-- STEP 1 — 환영 / Quick vs Full -->
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <section class="screen" data-screen="1">
+      <h1>워치로 한 번 누르면<br/>Mac이 받아씁니다.</h1>
+      <p class="lede">
+        갤럭시 워치 (또는 Wear OS)의 화면을 꾹 누르면 <b>Opt+Cmd+X</b>가 Mac에 입력되고,
+        <b>OpenTypeless / Superwhisper / macOS 받아쓰기</b>가 켜져요.
+        음성을 어디로 받을지(워치·이어폰·외부mic)는 셋업에서 고르세요.
+      </p>
+
+      <div class="cards two">
+        <button class="card primary" data-go="quick">
+          <div class="card-tag">⚡ Quick</div>
+          <h3>지금 바로 시작</h3>
+          <p>Mac 내장 마이크 + 워치 PTT.<br/>추가 장비 없이 3분.</p>
+          <small>검증 ✅ · C1 경로</small>
+        </button>
+
+        <button class="card" data-go="full">
+          <div class="card-tag">🎯 Full</div>
+          <h3>내 시나리오로 추천</h3>
+          <p>이어폰·외부mic·모빌리티 등<br/>상황에 맞는 path 추천.</p>
+          <small>3가지 질문 · ~30초</small>
+        </button>
+      </div>
+
+      <p class="skip">
+        <a href="paths/c1.html">→ 그냥 가이드만 보기 (C1)</a>
+        ·
+        <a href="https://github.com/devpnko/DdalkkakWatch" target="_blank" rel="noopener">소스</a>
+      </p>
+    </section>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <!-- STEP 2 — 시나리오 3 질문 -->
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <section class="screen" data-screen="2" hidden>
+      <h2>3가지 질문</h2>
+      <p class="lede">아무거나 골라도 다음에 바꿀 수 있어요.</p>
+
+      <div class="q">
+        <div class="q-h">Q1. 어떤 환경에서 주로 받아쓸까요?</div>
+        <div class="q-opts" data-q="env">
+          <button data-v="desk">🖥️ 데스크 (Mac 가까이)</button>
+          <button data-v="meet">🎙️ 회의 / 녹화 (고품질 필요)</button>
+          <button data-v="mobile">🚶 이동 중 (Mac 멀리)</button>
+          <button data-v="any">🤷 잘 모르겠어요</button>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-h">Q2. 갖고 있는 장비는?</div>
+        <div class="q-opts multi" data-q="have">
+          <button data-v="buds">🎧 갤럭시 Buds / AirPods</button>
+          <button data-v="lav">🎤 외부 마이크 (Lark / DJI 등)</button>
+          <button data-v="phone">📱 안드로이드 폰 (워치와 페어링)</button>
+          <button data-v="none">아무것도 없음 / Mac만</button>
+        </div>
+        <small class="hint">여러 개 선택 가능</small>
+      </div>
+
+      <div class="q">
+        <div class="q-h">Q3. 무엇이 가장 중요한가요?</div>
+        <div class="q-opts" data-q="prio">
+          <button data-v="fast">⚡ 빨리 시작 (0주, 0원)</button>
+          <button data-v="quality">🎯 음질 우선</button>
+          <button data-v="purity">⌚ 워치 본질 (워치만으로)</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <button class="ghost" data-go="quick">건너뛰기</button>
+        <button class="primary" id="toRec" disabled>추천 보기 →</button>
+      </div>
+    </section>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <!-- STEP 3 — 추천 -->
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <section class="screen" data-screen="3" hidden>
+      <div class="rec" id="rec"></div>
+
+      <details class="alt">
+        <summary>다른 path 6가지 비교 표</summary>
+        <table class="cmp">
+          <thead><tr><th>ID</th><th>구성</th><th>셋업</th><th>비용</th><th>음질</th><th>상태</th></tr></thead>
+          <tbody>
+            <tr><td>C1</td><td>Mac mic + 워치 PTT</td><td>3분</td><td>0</td><td>7/10</td><td>✅ 검증</td></tr>
+            <tr><td>C2</td><td>Buds/AirPods + 워치 PTT</td><td>5분</td><td>보유시 0</td><td>8/10</td><td>✅ 검증</td></tr>
+            <tr><td>C3</td><td>Lark M2 + 워치 PTT</td><td>10분</td><td>~15만</td><td>9/10</td><td>💡 권고</td></tr>
+            <tr><td>C4</td><td>워치 mic → roc-vad WiFi</td><td>1h + dev</td><td>0</td><td>6/10</td><td>🚧 Coming</td></tr>
+            <tr><td>C5</td><td>워치 → 폰 → Mac</td><td>~30분 + dev</td><td>0</td><td>7/10</td><td>🚧 Coming</td></tr>
+            <tr><td>C6</td><td>Mac 단축키 단독 (워치 없음)</td><td>2분</td><td>0</td><td>7/10</td><td>✅ 검증</td></tr>
+          </tbody>
+        </table>
+      </details>
+
+      <div class="row">
+        <button class="ghost" data-back="2">← 답변 수정</button>
+        <button class="primary" id="toVerify">셋업 시작 →</button>
+      </div>
+    </section>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <!-- STEP 4 — 검증 -->
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <section class="screen" data-screen="4" hidden>
+      <h2>마지막 — 작동 확인</h2>
+      <ol class="check">
+        <li>워치를 깨우고 <b>딸깍</b> 앱을 엽니다.</li>
+        <li>아무 텍스트 필드(메모·Cursor·Claude Code 등)에 커서를 놓습니다.</li>
+        <li>워치 화면을 <b>꾹 눌렀다 뗍니다</b> (200ms+).</li>
+        <li>받아쓰기 UI가 뜨면 "안녕하세요" 라고 말합니다.</li>
+        <li>텍스트가 입력되면 ✅ 완료.</li>
+      </ol>
+
+      <div class="cards two">
+        <a class="card success" href="#" id="done">
+          <h3>✅ 잘 됩니다</h3>
+          <p>완료! 워치 화면 꾹 누름 = 받아쓰기, 짧은 두 번 탭 = Enter.</p>
+        </a>
+        <a class="card warn" href="#troubleshoot" id="trouble">
+          <h3>⚠️ 안 됩니다</h3>
+          <p>증상별 트러블슈팅으로 이동</p>
+        </a>
+      </div>
+
+      <div class="rec" style="margin-top:18px">
+        <div class="rec-id">한 단계 더 · v0.2</div>
+        <h3>⌚ 화면도 안 켜고 쓰고 싶다면</h3>
+        <p>손목을 두 번 두드리면(Knock-Knock) 화면 없이 받아쓰기가 켜져요. 워치 본질에 가장 가까운 사용법.</p>
+        <p><a href="paths/knock-knock.html">→ 무화면 받아쓰기 셋업</a></p>
+      </div>
+
+      <section id="troubleshoot" class="trouble" hidden>
+        <h3>증상별</h3>
+        <ul>
+          <li><b>워치 상태가 "HID 등록 대기" 그대로</b> — 워치 BT 권한 재허용 + 앱 재시작</li>
+          <li><b>Mac에서 워치가 안 보임</b> — 워치 앱에서 한 번 누르면 2분간 discoverable, 그 사이 Mac BT 설정에서 페어링</li>
+          <li><b>입력은 되는데 받아쓰기 안 뜸</b> — Mac의 OpenTypeless / Superwhisper / macOS 받아쓰기 단축키가 <code>Opt+Cmd+X</code>인지 확인</li>
+          <li><b>한 번 누르면 "ㅁ"으로 입력</b> — Mac 키보드 입력 소스가 한글 → 영문(US)으로 전환 필요</li>
+          <li><b>Mac 잠금 풀면 끊김</b> — 워치 앱 다시 열어 자동 재연결, 또는 Mac BT 끄고 켜기</li>
+          <li><b>adb로 워치가 안 잡힘 / 태블릿이 잡힘</b> — <code>adb devices -l</code>로 model 확인. 워치 무선 디버깅 다시 켜고 <code>adb pair</code> → <code>adb connect</code>. sleep 시 끊기니 화면 깨우기</li>
+          <li><b>설치 시 "missing shared library wearable"</b> — 설치 대상이 워치가 아님(태블릿/폰). 워치만 연결 후 재설치</li>
+        </ul>
+        <a href="https://github.com/devpnko/DdalkkakWatch/issues" target="_blank" rel="noopener">→ 새 이슈 열기</a>
+      </section>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <small>딸깍 워치 · WearMouse 기반 (Apache 2.0) · 한국에서 만듦</small>
+  </footer>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

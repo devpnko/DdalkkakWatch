@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>무화면 받아쓰기 — Knock-Knock · 딸깍</title>
+<link rel="stylesheet" href="../style.css"/>
+</head><body class="guide">
+<div class="wrap">
+  <a href="../index.html" class="back">← 마법사로</a>
+  <h1>⌚ 무화면 받아쓰기 — Knock-Knock <span class="tag ok">v0.2</span></h1>
+  <p class="lede">
+    워치 화면을 <b>아예 안 켜고</b> 손목을 두 번 두드리면(Knock-Knock) 받아쓰기가 켜져요.
+    워치 본질에 가장 가까운 사용법. 모든 워치 path(C1~C5)에 공통.
+  </p>
+
+  <article>
+    <h3>원리 — 왜 화면 안 켜도 되나</h3>
+    <ul>
+      <li>Galaxy Watch의 <b>Knock-Knock</b>(손목 두 번 두드림) 손동작에 "딸깍 받아쓰기"를 할당</li>
+      <li>두드리면 화면 안 뜨고(투명) <code>Opt+Cmd+X</code>를 Mac에 즉시 발사 → 받아쓰기 토글</li>
+      <li>백그라운드 서비스가 BLE 연결을 미리 유지 → 두드리자마자 작동 (지연 없음)</li>
+    </ul>
+    <p><b>전제</b> — C1 셋업(워치↔Mac BT 페어링 + 단축키 <code>Opt+Cmd+X</code>) 완료. <a href="c1.html">→ C1 먼저</a></p>
+  </article>
+
+  <article>
+    <h3>1) 워치에 백그라운드 연결 켜기</h3>
+    <ol>
+      <li>워치에서 <b>딸깍</b> 앱을 한 번 실행 (이때 BLE 연결 유지 서비스가 자동 시작)</li>
+      <li>알림에 <b>"딸깍 연결 유지 중"</b>이 뜨면 정상 — 이제 앱을 닫아도 연결 유지됨</li>
+    </ol>
+  </article>
+
+  <article>
+    <h3>2) Knock-Knock에 "딸깍 받아쓰기" 할당</h3>
+    <ol>
+      <li>워치 → <b>설정 → 고급 기능 → 손동작</b> (또는 제스처)</li>
+      <li><b>Knock-Knock</b>(노크노크 / 두드리기) 켜기</li>
+      <li>실행할 앱/단축키 → <b>"딸깍 받아쓰기"</b> 선택
+        <br/><small class="hint">앱 서랍에 "딸깍 받아쓰기"가 본체 앱과 별도로 보입니다 (무화면 전용 진입점)</small>
+      </li>
+    </ol>
+  </article>
+
+  <article>
+    <h3>3) 사용 + 검증</h3>
+    <ol>
+      <li>워치 화면 끈 채로 손목을 <b>똑똑</b> 두 번 두드림</li>
+      <li>햅틱 진동(두 번) = 받아쓰기 ON 신호</li>
+      <li>"안녕하세요" 발화 → Mac 텍스트 필드에 입력</li>
+      <li>다시 두드림 = 받아쓰기 OFF (OpenTypeless가 toggle 모드일 때)</li>
+    </ol>
+    <p><b>첫 두드림이 안 되면</b> — BLE가 cold 상태. 한 번 더 두드리면(롱 진동 후) 연결되고, 그다음부터 즉시 작동.</p>
+  </article>
+
+  <article>
+    <h3>⚠️ 한계 / 주의</h3>
+    <ul>
+      <li><b>OpenTypeless / Superwhisper 단축키가 tap-to-toggle 모드</b>여야 한 번 두드림으로 ON/OFF. hold 모드면 화면 PTT(꾹 누름)를 쓰세요.</li>
+      <li>운전·요리·운동 중 손목 움직임에 <b>오작동</b> 가능 → 안 쓸 땐 Knock-Knock 끄기</li>
+      <li>Galaxy Watch Ultra/Watch7+ One UI 6.1.1+ 에서 Knock-Knock 지원</li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>💡 다른 무화면 옵션 (참고)</h3>
+    <ul>
+      <li><b>손목 휘두름(Wrist Flick)</b> — 앱 켜져 있을 때만. 화면 PTT 보조</li>
+      <li><b>Double Pinch(엄지+검지 두 번)</b> — Galaxy 시스템 전용이라 현재 앱 직접 연동 불가 (Samsung 미개방). 그래서 Knock-Knock으로 우회.</li>
+    </ul>
+  </article>
+
+  <p><a href="c1.html">← C1 기본 셋업</a> · <a href="../index.html">마법사로</a></p>
+</div>
+</body></html>

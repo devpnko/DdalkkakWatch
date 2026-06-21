@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>C5 — 워치 → 폰 → Mac · 딸깍</title>
+<link rel="stylesheet" href="../style.css"/>
+</head><body class="guide">
+<div class="wrap">
+  <a href="../index.html" class="back">← 마법사로</a>
+  <h1>C5 — 워치 → 안드로이드 폰 → Mac <span class="tag soon">Coming soon</span></h1>
+  <p class="lede">갤럭시 폰을 항상 들고 다니는 사용자용. 폰을 Mac 마이크 게이트웨이로.</p>
+
+  <article>
+    <h3>왜 이 path</h3>
+    <ul>
+      <li>워치 자체 마이크가 약해도 폰 마이크는 강함</li>
+      <li>워치 ↔ 폰은 1m, 폰 ↔ Mac은 WiFi/LAN — 거리 제약 없음</li>
+      <li>폰에서 1차 노이즈 캔슬 + WebRTC 전송</li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>구성</h3>
+    <pre><code>워치             폰 (Android)              Mac
+PTT─BLE HID──┐
+             ▼
+        (워치 mic? 폰 mic?)
+             │ WebRTC / UDP
+             ▼
+       ┌──────────┐
+       │ 전송 앱  │── LAN ──→ Mac WebRTC 수신
+       └──────────┘                 │
+                                    ▼
+                              가상 mic → 받아쓰기</code></pre>
+  </article>
+
+  <article>
+    <h3>현재 진행 상황 (2026-06)</h3>
+    <ul>
+      <li>🚧 안드로이드 brigde 앱 — 3주 dev 예정</li>
+      <li>🚧 Mac WebRTC 수신 데몬 (Swift / Electron / Rust)</li>
+      <li>🚧 Mac 가상 마이크 (roc-vad와 동일 HAL 재사용)</li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>출시 알림 + 대안</h3>
+    <p>지금 가장 가까운 셋업은 <a href="c2.html">C2 (Galaxy Buds → Mac 직결)</a>입니다.</p>
+  </article>
+
+  <p><a href="c4.html">← C4</a> · <a href="../index.html">마법사로</a> · <a href="c6.html">다음 C6 →</a></p>
+</div>
+</body></html>
