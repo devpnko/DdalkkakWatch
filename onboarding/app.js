@@ -1,14 +1,14 @@
 /* 딸깍 온보딩 마법사 — Hermes 패턴 적용 4-step state machine
-   - 환영: Quick(C1 즉시) vs Full(시나리오 추천)
+   - 환영: Quick(C1 빠른 시작) vs Full(시나리오 추천)
    - 시나리오: 3 질문 (env / have / prio)
    - 추천: 6 path 중 최적 1개 + 비교표
-   - 검증: 5-step 체크리스트 + 트러블슈팅
+   - 확인: 5-step 체크리스트 + 트러블슈팅
 */
 
 const PATHS = {
   c1: {
     id: 'C1', title: 'Mac 내장 마이크 + 워치 PTT',
-    tag: '✅ 검증',
+    tag: '✅ 지원',
     blurb: '추가 장비 없이 가장 빠른 셋업. 데스크에서 Mac 1m 이내일 때 가장 좋음.',
     steps: [
       '워치에 <code>DdalkkakWatch.apk</code> 설치 (adb install)',
@@ -22,7 +22,7 @@ const PATHS = {
   },
   c2: {
     id: 'C2', title: 'Galaxy Buds / AirPods + 워치 PTT',
-    tag: '✅ 검증',
+    tag: '✅ 지원',
     blurb: '이어폰을 Mac에 페어링해서 Mac 마이크로 쓰는 path. 워치는 PTT 트리거만.',
     steps: [
       'C1 셋업 먼저 완료',
@@ -77,7 +77,7 @@ const PATHS = {
   },
   c6: {
     id: 'C6', title: 'Mac 단축키 단독 (워치 없음)',
-    tag: '✅ 검증',
+    tag: '✅ 지원',
     blurb: '워치가 없거나, 워치 안 차고 싶을 때. Mac 키보드 단축키 1발.',
     steps: [
       'OpenTypeless / Superwhisper 설치',

@@ -97,7 +97,7 @@ h3{font-size:18px; margin:0 0 8px}
 .cmp th,.cmp td{padding:8px 10px; border-bottom:1px solid var(--line); text-align:left}
 .cmp th{color:var(--muted); font-weight:500}
 
-/* ── 검증 / 트러블 ───────── */
+/* ── 확인 / 트러블 ───────── */
 .check{padding-left:22px}
 .check li{margin-bottom:8px}
 .trouble{background:var(--panel); border:1px solid var(--warn); border-radius:var(--radius); padding:18px; margin-top:20px}

@@ -19,6 +19,7 @@ labels: bug
 2.
 
 **logcat (가능하면)**
+Bluetooth 주소, 기기 식별자, 개인 로그는 지운 뒤 붙여 주세요.
 ```
 adb logcat -s DDK:I DDK_BLE:I DDK_SVC:I DDK_QUICK:I
 ```

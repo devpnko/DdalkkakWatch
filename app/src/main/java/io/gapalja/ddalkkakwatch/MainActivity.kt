@@ -31,6 +31,7 @@ import androidx.wear.compose.material.Text
 import io.gapalja.ddalkkakwatch.ble.BleHidManager
 import io.gapalja.ddalkkakwatch.ble.HidReportDescriptor
 import io.gapalja.ddalkkakwatch.haptic.HapticFeedbackController
+import io.gapalja.ddalkkakwatch.service.DictationService
 import kotlinx.coroutines.withTimeoutOrNull
 
 class MainActivity : ComponentActivity() {
@@ -59,8 +60,6 @@ class MainActivity : ComponentActivity() {
 
         bleHidManager = (application as DdalkkakApp).bleHidManager
         ensurePermissionsThenRegister()
-        // BLE 연결을 백그라운드에서 유지 → Knock-Knock 무화면 받아쓰기가 즉시 작동
-        io.gapalja.ddalkkakwatch.service.DictationService.start(this)
 
         setContent {
             MaterialTheme {
@@ -111,11 +110,17 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onPause() {
+        if (::bleHidManager.isInitialized) {
+            bleHidManager.releaseAll()
+        }
+        super.onPause()
+    }
+
     private fun ensurePermissionsThenRegister() {
         val needed = arrayOf(
             Manifest.permission.BLUETOOTH_CONNECT,
-            Manifest.permission.BLUETOOTH_ADVERTISE,
-            Manifest.permission.BLUETOOTH_SCAN
+            Manifest.permission.BLUETOOTH_ADVERTISE
         )
         val missing = needed.filter {
             ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
@@ -127,6 +132,9 @@ class MainActivity : ComponentActivity() {
     @android.annotation.SuppressLint("MissingPermission")
     private fun registerAndDiscoverable() {
         bleHidManager.register()
+        // Bluetooth 연결을 백그라운드에서 유지해 Knock-Knock cold-start 지연을 줄인다.
+        // Android 12+에서는 Bluetooth 권한 승인 전에 FGS가 HID 등록을 시도하면 실패할 수 있다.
+        DictationService.start(this)
         try {
             val adapter = (getSystemService(BLUETOOTH_SERVICE) as android.bluetooth.BluetoothManager).adapter
             adapter?.setName("DdalkkakWatch")
@@ -157,7 +165,6 @@ fun GestureScreen(
             .pointerInput(Unit) {
                 awaitEachGesture {
                     awaitFirstDown(requireUnconsumed = false)
-                    val downTime = System.currentTimeMillis()
 
                     // 150ms 안에 떼면 = quick tap (double-tap 후보)
                     var quickUp = false

@@ -24,15 +24,20 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Lint debug build
+        run: ./gradlew :app:lintDebug --no-daemon
+
       - name: Build debug APK
         run: ./gradlew :app:assembleDebug --no-daemon
 
       - name: Upload APK
+        if: github.event_name == 'push'
         uses: actions/upload-artifact@v4
         with:
           name: ddalkkak-watch-debug
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+          retention-days: 7
 
   onboarding-check:
     runs-on: ubuntu-latest

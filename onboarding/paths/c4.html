@@ -26,7 +26,7 @@
 │ roc-sender app │── UDP ──│ roc-vad daemon     │
 │   (mic capture)│   WiFi  │   ↓                │
 └────────────────┘         │ CoreAudio HAL      │
-        │PTT BLE HID       │   ↓                │
+        │PTT Bluetooth HID │   ↓                │
         └──────────────────│ 가상 mic "DdalkkakWatch"│
                            │   ↓                │
                            │ OpenTypeless 받아쓰기│
@@ -36,7 +36,7 @@
   <article>
     <h3>현재 진행 상황 (2026-06)</h3>
     <ul>
-      <li>✅ roc-toolkit (roc-vad + roc-java) 라이브러리 검증</li>
+      <li>✅ roc-toolkit (roc-vad + roc-java) 라이브러리 조사</li>
       <li>⚠️ Mac side roc-vad CoreAudio HAL 설치 절차 작성 (sudo 필요)</li>
       <li>🚧 Wear OS roc-sender 앱 — 3.5주 dev 예정</li>
       <li>🚧 워치 ↔ Mac 자동 discovery (mDNS)</li>

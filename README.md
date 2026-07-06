@@ -24,8 +24,9 @@ breaks your flow — especially when your hands leave the keyboard (whiteboard,
 standing, pacing, coffee). A watch press is always within reach.
 
 The hard part isn't the mic — it's the **trigger**. DdalkkakWatch solves the
-trigger with a driverless BLE HID keyboard, and lets you choose how the audio
-gets in (built-in mic, earbuds, lavalier, or — coming — the watch's own mic).
+trigger with Android's `BluetoothHidDevice` keyboard profile, and lets you
+choose how the audio gets in (built-in mic, earbuds, lavalier, or — coming —
+the watch's own mic path).
 
 ## Quick start
 
@@ -58,12 +59,12 @@ wizard recommends one based on your gear and use case.
 
 | ID | Setup | Quality | Status |
 |---|---|---|---|
-| **C1** | Mac built-in mic + watch PTT | ⭐⭐⭐ | ✅ works |
-| **C2** | Galaxy Buds / AirPods + watch PTT | ⭐⭐⭐⭐ | ✅ works |
+| **C1** | Mac built-in mic + watch PTT | ⭐⭐⭐ | ✅ supported |
+| **C2** | Galaxy Buds / AirPods + watch PTT | ⭐⭐⭐⭐ | ✅ supported |
 | **C3** | USB-C lavalier (Lark M2 / DJI) + watch PTT | ⭐⭐⭐⭐⭐ | 💡 recommended |
 | **C4** | Watch mic → roc-vad Wi-Fi UDP → Mac virtual mic | ⭐⭐⭐ | 🚧 coming |
 | **C5** | Watch → phone → Mac | ⭐⭐⭐ | 🚧 coming |
-| **C6** | Mac hotkey only (no watch) | ⭐⭐⭐ | ✅ works |
+| **C6** | Mac hotkey only (no watch) | ⭐⭐⭐ | ✅ supported |
 
 ## Architecture
 
@@ -71,7 +72,7 @@ wizard recommends one based on your gear and use case.
 Watch (Wear OS)                         Mac (no app needed)
 ┌──────────────────────────┐
 │ MainActivity (PTT/dbl-tap)│           ┌────────────────────┐
-│ QuickDictateActivity      │  BLE HID  │ Bluetooth keyboard │
+│ QuickDictateActivity      │ Bluetooth │ Bluetooth keyboard │
 │   (Knock-Knock, no UI)    │──Boot────▶│   = Opt+Cmd+X      │
 │ DictationService (keep-   │  Keyboard │        ↓           │
 │   alive, Foreground)      │           │ OpenTypeless /     │
@@ -80,8 +81,10 @@ Watch (Wear OS)                         Mac (no app needed)
 └──────────────────────────┘           └────────────────────┘
 ```
 
-- **BLE HID Boot Keyboard** (Bluetooth Classic BR/EDR), driverless on macOS.
-- **Foreground Service** keeps the connection warm so Knock-Knock fires instantly.
+- **Bluetooth HID keyboard profile** via Android `BluetoothHidDevice`,
+  driverless on macOS.
+- **Foreground Service** keeps the connection warm so Knock-Knock avoids most
+  cold-start delay.
 - 8-byte HID report: `[modifier, reserved, keycode×6]`.
 
 ## Requirements
@@ -89,6 +92,12 @@ Watch (Wear OS)                         Mac (no app needed)
 - Wear OS 5+ watch (developed on Galaxy Watch Ultra). minSdk 33.
 - A Mac with a dictation app bound to `Opt+Cmd+X`.
 - JDK 17 + Android SDK (platform 34, build-tools 34) to build.
+
+## Tested Environment
+
+The first public beta is based on owner-reported active use with a Galaxy Watch
+Ultra and a MacBook Pro. See [device proof](docs/DEVICE_PROOF.md) for the
+current proof status and the artifacts required before tagging a release.
 
 ## Onboarding wizard
 
@@ -107,5 +116,5 @@ Release history in [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
-[Apache License 2.0](LICENSE). BLE HID patterns informed by Google's
+[Apache License 2.0](LICENSE). Bluetooth HID patterns informed by Google's
 [WearMouse](https://github.com/google/wearmouse) — see [NOTICE](NOTICE).

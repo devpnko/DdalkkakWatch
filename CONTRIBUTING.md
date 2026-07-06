@@ -15,6 +15,16 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 워치 연결 / 설치 / 셋업 전체 흐름은 온보딩 마법사(`onboarding/`)의 `paths/c1.html`을 참고하세요.
 
+## 공개 전 체크
+
+```bash
+./gradlew :app:lintDebug
+./gradlew :app:assembleDebug
+node --check onboarding/app.js
+```
+
+오픈소스 릴리스 전에는 [release checklist](docs/OPEN_SOURCE_RELEASE.md)를 먼저 통과시켜 주세요.
+
 ## 프로젝트 구조
 
 ```
@@ -26,15 +36,15 @@ app/src/main/java/io/gapalja/ddalkkakwatch/
 │   ├── BleHidManager.kt     # BluetoothHidDevice 등록·연결·키 전송
 │   └── HidReportDescriptor.kt  # USB HID Boot Keyboard descriptor + 키코드
 ├── haptic/HapticFeedbackController.kt
-└── service/DictationService.kt  # BLE 연결 백그라운드 유지 (Foreground)
+└── service/DictationService.kt  # Bluetooth 연결 백그라운드 유지 (Foreground)
 onboarding/                  # 셋업 마법사 (정적 HTML/JS — GitHub Pages용)
 ```
 
 ## PR 가이드
 
 - **작은 PR** 환영. 하나의 PR = 하나의 관심사.
-- 빌드 통과(`./gradlew assembleDebug`) 확인 후 올려주세요.
-- 키코드·HID 변경 시 실제 Mac에서 입력 검증한 내용을 PR 설명에 남겨주세요.
+- 빌드와 lint 통과(`./gradlew :app:lintDebug :app:assembleDebug`) 확인 후 올려주세요.
+- 키코드·HID 변경 시 실제 Mac에서 입력 확인한 내용을 PR 설명에 남겨주세요.
 - 커밋 메시지: `feat:`, `fix:`, `docs:` 등 conventional prefix 권장.
 
 ## 새 마이크 path / 받아쓰기 앱 추가

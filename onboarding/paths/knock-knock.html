@@ -17,8 +17,8 @@
     <h3>원리 — 왜 화면 안 켜도 되나</h3>
     <ul>
       <li>Galaxy Watch의 <b>Knock-Knock</b>(손목 두 번 두드림) 손동작에 "딸깍 받아쓰기"를 할당</li>
-      <li>두드리면 화면 안 뜨고(투명) <code>Opt+Cmd+X</code>를 Mac에 즉시 발사 → 받아쓰기 토글</li>
-      <li>백그라운드 서비스가 BLE 연결을 미리 유지 → 두드리자마자 작동 (지연 없음)</li>
+      <li>두드리면 화면 안 뜨고(투명) <code>Opt+Cmd+X</code>를 Mac에 전송 → 받아쓰기 토글</li>
+      <li>백그라운드 서비스가 Bluetooth 연결을 미리 유지 → 대부분의 cold-start 지연을 줄임</li>
     </ul>
     <p><b>전제</b> — C1 셋업(워치↔Mac BT 페어링 + 단축키 <code>Opt+Cmd+X</code>) 완료. <a href="c1.html">→ C1 먼저</a></p>
   </article>
@@ -26,7 +26,7 @@
   <article>
     <h3>1) 워치에 백그라운드 연결 켜기</h3>
     <ol>
-      <li>워치에서 <b>딸깍</b> 앱을 한 번 실행 (이때 BLE 연결 유지 서비스가 자동 시작)</li>
+      <li>워치에서 <b>딸깍</b> 앱을 한 번 실행 (이때 Bluetooth 연결 유지 서비스가 자동 시작)</li>
       <li>알림에 <b>"딸깍 연결 유지 중"</b>이 뜨면 정상 — 이제 앱을 닫아도 연결 유지됨</li>
     </ol>
   </article>
@@ -43,14 +43,14 @@
   </article>
 
   <article>
-    <h3>3) 사용 + 검증</h3>
+    <h3>3) 사용 + 작동 확인</h3>
     <ol>
       <li>워치 화면 끈 채로 손목을 <b>똑똑</b> 두 번 두드림</li>
       <li>햅틱 진동(두 번) = 받아쓰기 ON 신호</li>
       <li>"안녕하세요" 발화 → Mac 텍스트 필드에 입력</li>
       <li>다시 두드림 = 받아쓰기 OFF (OpenTypeless가 toggle 모드일 때)</li>
     </ol>
-    <p><b>첫 두드림이 안 되면</b> — BLE가 cold 상태. 한 번 더 두드리면(롱 진동 후) 연결되고, 그다음부터 즉시 작동.</p>
+    <p><b>첫 두드림이 안 되면</b> — Bluetooth가 cold 상태. 한 번 더 두드리면(롱 진동 후) 연결되고, 이후에는 더 빠르게 동작합니다.</p>
   </article>
 
   <article>

@@ -7,7 +7,7 @@ This product is licensed under the Apache License, Version 2.0 (see LICENSE).
 Attributions
 ------------------------------------------------------------------------
 
-BLE HID keyboard implementation patterns (BluetoothHidDevice registration,
+Bluetooth HID keyboard implementation patterns (BluetoothHidDevice registration,
 Boot Keyboard HID report descriptor, SDP settings) were informed by Google's
 WearMouse project, also licensed under the Apache License, Version 2.0:
 
@@ -18,5 +18,5 @@ WearMouse project, also licensed under the Apache License, Version 2.0:
 The USB HID Boot Keyboard report descriptor follows the USB HID 1.11
 specification (Appendix E.6), a public standard.
 
-This project does not bundle WearMouse source code; the BLE HID layer
+This project does not bundle WearMouse source code; the Bluetooth HID layer
 (BleHidManager, HidReportDescriptor) is an independent implementation.
