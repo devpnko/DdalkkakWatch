@@ -1,0 +1,51 @@
+name: pages
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'onboarding/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check onboarding wizard
+        run: |
+          node --check onboarding/app.js
+          broken=0
+          cd onboarding
+          for f in index.html paths/*.html; do
+            d=$(dirname "$f")
+            for l in $(grep -oE 'href="[^"#]+"' "$f" | grep -vE 'http|mailto' | sed 's/href="//;s/"//'); do
+              case "$l" in /*) continue;; esac
+              [ -f "$d/$l" ] || { echo "BROKEN $f -> $l"; broken=$((broken+1)); }
+            done
+          done
+          echo "broken_links=$broken"
+          test "$broken" -eq 0
+
+      - name: Upload onboarding artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: onboarding
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

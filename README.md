@@ -105,6 +105,8 @@ current proof status and the artifacts required before tagging a release.
 host on GitHub Pages. It walks anyone through device → scenario → recommended
 audio path → setup → verification.
 
+Public onboarding: <https://devpnko.github.io/DdalkkakWatch/>
+
 ```bash
 cd onboarding && python3 -m http.server 7788   # → http://127.0.0.1:7788/
 ```
